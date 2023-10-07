@@ -41,8 +41,6 @@ int main()
         return 1; // Exit with an error code
     }
 
-    printf("Number of elements read: %d\n", n); // Debugging statement
-
     // Dynamically allocate memory for the data array
     arr = (int *)malloc(n * sizeof(int));
 
@@ -63,7 +61,6 @@ int main()
             fclose(file);
             return 1; // Exit with an error code
         }
-        printf("Read value: %d\n", arr[i]); // Debugging statement
     }
 
     // Close the file
@@ -110,7 +107,7 @@ int main()
     if (order_choice == 1)
     {
         printf("Sorted in ascending order: ");
-        print(arr, n); // Print in ascending order
+        print(arr, n); 
     }
     else if (order_choice == 2)
     {
