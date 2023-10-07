@@ -34,7 +34,7 @@ int main()
     }
 
     // Read the number of elements from the file
-    if (fscanf(file, "%d", &n) != 1)
+    if (fscanf(file, "%d", &n) != 1 || n <= 0)
     {
         printf("Error reading the number of elements. Exiting...\n");
         fclose(file);
@@ -73,28 +73,38 @@ int main()
     printf("2. Insertion Sort\n");
     printf("3. Selection Sort\n\n");
     printf("Enter your choice: ");
-    scanf("%d", &choice);
+    if (scanf("%d", &choice) != 1 || choice < 1 || choice > 3)
+    {
+        printf("Invalid choice. Exiting...\n");
+        free(arr); // Free dynamically allocated memory
+        return 1;  // Exit with an error code
+    }
 
     // Menu-driven interface to select the sorting order
-    printf("\n Select sorting order:\n");
+    printf("\nSelect sorting order:\n");
     printf("1. Ascending\n");
     printf("2. Descending\n\n");
     printf("Enter your choice: ");
     int order_choice;
-    scanf("%d", &order_choice);
+    if (scanf("%d", &order_choice) != 1 || order_choice < 1 || order_choice > 2)
+    {
+        printf("Invalid order choice. Exiting...\n");
+        free(arr); // Free dynamically allocated memory
+        return 1;  // Exit with an error code
+    }
 
     switch (choice)
     {
     case 1:
-        printf("\n bubble sort starting.... \n");
+        printf("\nBubble sort starting.... \n");
         bubbleSort(arr, n);
         break;
     case 2:
-        printf("\n insertion sort starting.... \n");
+        printf("\nInsertion sort starting.... \n");
         insertionSort(arr, n);
         break;
     case 3:
-        printf("\n selection sort starting.... \n");
+        printf("\nSelection sort starting.... \n");
         selectionSort(arr, n);
         break;
     default:
@@ -107,9 +117,9 @@ int main()
     if (order_choice == 1)
     {
         printf("Sorted in ascending order: ");
-        print(arr, n); 
+        print(arr, n);
     }
-    else if (order_choice == 2)
+    else
     {
         printf("Sorted in descending order: ");
         for (int i = n - 1; i >= 0; i--)
@@ -117,10 +127,6 @@ int main()
             printf("%d ", arr[i]);
         }
         printf("\n\n");
-    }
-    else
-    {
-        printf("Invalid order choice. Exiting...\n");
     }
 
     // Free dynamically allocated memory to prevent memory leaks
