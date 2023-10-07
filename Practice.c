@@ -17,6 +17,24 @@ void print(int data[], int a)
     return;
 }
 
+void saveToFile(int data[], int n, const char *filename)
+{
+    FILE *file = fopen(filename, "w");
+    if (file == NULL)
+    {
+        printf("Error opening the file for saving. Exiting...\n");
+        return;
+    }
+
+    for (int i = 0; i < n; i++)
+    {
+        fprintf(file, "%d\n", data[i]);
+    }
+
+    fclose(file);
+    printf("Sorted data has been saved to %s.\n\n", filename);
+}
+
 int main()
 {
     // Dynamic array
@@ -142,6 +160,18 @@ int main()
 
     // Display execution time
     printf("Execution time: %f seconds\n", cpu_time_used);
+
+    // Option to save sorted data to a file
+    printf("\nDo you want to save the sorted data to a file? (1 for Yes, 0 for No): ");
+    int save_choice;
+    scanf("%d", &save_choice);
+    if (save_choice == 1)
+    {
+        char outputFileName[100];
+        printf("Enter the name of the output file: ");
+        scanf("%s", outputFileName);
+        saveToFile(arr, n, outputFileName);
+    }
 
     // Free dynamically allocated memory to prevent memory leaks
     free(arr);
