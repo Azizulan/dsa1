@@ -93,6 +93,13 @@ int main()
         return 1;  // Exit with an error code
     }
 
+    // Variables to measure execution time
+    clock_t start, end;
+    double cpu_time_used;
+
+    // Start measuring execution time
+    start = clock();
+
     switch (choice)
     {
     case 1:
@@ -113,6 +120,10 @@ int main()
         return 1;  // Exit with an error code
     }
 
+    // Stop measuring execution time
+    end = clock();
+    cpu_time_used = ((double)(end - start)) / CLOCKS_PER_SEC;
+
     // Print the sorted array
     if (order_choice == 1)
     {
@@ -128,6 +139,9 @@ int main()
         }
         printf("\n\n");
     }
+
+    // Display execution time
+    printf("Execution time: %f seconds\n", cpu_time_used);
 
     // Free dynamically allocated memory to prevent memory leaks
     free(arr);
