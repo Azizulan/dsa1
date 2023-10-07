@@ -4,6 +4,7 @@
 
 void insertionSort(int data[], int n);
 void bubbleSort(int data[], int n);
+void selectionSort(int data[], int n);
 
 void print(int data[], int a)
 {
@@ -42,22 +43,62 @@ int main() {
         arr[i] = (rand() % 100) + 1;
     }
 
-    //print the array
-    printf("Before sorting: ");
-    print(arr,n);
+    //Menu-driven interface to select the sorting algorithm
+    int choice;
+    printf("Select a sorting algorithm:\n");
+    printf("1. Bubble Sort\n");
+    printf("2. Insertion Sort\n");
+    printf("3. Selection Sort\n\n");
+    printf("Enter your choice: ");
+    scanf("%d", &choice);
 
+    //Menu-driven interface to select the sorting order
+    printf("\n Select sorting order:\n");
+    printf("1. Ascending\n");
+    printf("2. Descending\n\n");
+    printf("Enter your choice: ");
+    int order_choice;
+    scanf("%d", &order_choice);
 
-    //apply insertion sort
-    insertionSort(arr,n);
-    printf("After sorting: ");
-    print(arr,n);
+   switch (choice)
+    {
+    case 1: 
+        printf("\n bubble sort starting.... \n");
+        bubbleSort(arr, n);
+        break;
+    case 2: 
+        printf("\n insertion sort starting.... \n");
+        insertionSort(arr, n);
+        break;
+    case 3: 
+        printf("\n selection sort starting.... \n");
+        selectionSort(arr, n);
+        break;
+    default:
+        printf("Invalid choice. Exiting...\n");
+        free(arr); // Free dynamically allocated memory
+        return 1;   // Exit with an error code
+    }
 
-
-    //apply bubble sort
-    bubbleSort(arr,n);
-    printf("After sorting: ");
-    print(arr,n);
-
+    // Print the sorted array
+    if (order_choice == 1)
+    {
+        printf("Sorted in ascending order: ");
+        print(arr, n);
+    }
+    else if (order_choice == 2)
+    {
+        printf("Sorted in descending order: ");
+        for (int i = n - 1; i >= 0; i--)
+        {
+            printf("%d ", arr[i]);
+        }
+        printf("\n\n");
+    }
+    else
+    {
+        printf("Invalid order choice. Exiting...\n");
+    }
 
     // Free dynamically allocated memory to prevent memory leaks
     free(arr);
@@ -97,4 +138,26 @@ void bubbleSort(int data[], int n)
 			}
 		}
 	}
+}
+
+void selectionSort(int data[], int n)
+{
+    for (int i = 0; i < n - 1; i++)
+    {
+        int min_index = i;
+        for (int j = i + 1; j < n; j++)
+        {
+            if (data[j] < data[min_index])
+            {
+                min_index = j;
+            }
+        }
+        if (min_index != i)
+        {
+            // Swap the elements
+            int temp = data[i];
+            data[i] = data[min_index];
+            data[min_index] = temp;
+        }
+    }
 }
