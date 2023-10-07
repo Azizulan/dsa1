@@ -1,6 +1,3 @@
-Certainly, here's a `README.md` file that provides an overview of your C program for sorting algorithms and the changes you made to allow input from a text file:
-
-```markdown
 # Sorting Algorithms in C
 
 This C program demonstrates the implementation of three sorting algorithms: Bubble Sort, Insertion Sort, and Selection Sort. It also includes a menu-driven interface that allows the user to choose a sorting algorithm and the sorting order (ascending or descending). Additionally, it provides the capability to read input data from a text file, making it easier to work with larger datasets.
@@ -11,18 +8,21 @@ This C program demonstrates the implementation of three sorting algorithms: Bubb
 - [Usage](#usage)
 - [File Input](#file-input)
 - [Sorting Algorithms](#sorting-algorithms)
-- [Contributing](#contributing)
-- [License](#license)
+- [Error Handling](#error-handling)
+- [Timing and Performance Measurement](#timing-and-performance-measurement)
+- [Output to a File](#output-to-a-file)
 
 ## Getting Started
 
 To use this program, you should have a C compiler installed on your system. You can compile and run the program with the following steps:
 
 1. Clone the repository to your local machine:
-
+   
    ```bash
    git clone https://github.com/Azizulan/dsa1
    ```
+   
+
 
 2. Change to the project directory:
 
@@ -46,7 +46,11 @@ To use this program, you should have a C compiler installed on your system. You 
 
 Once the program is running, it will prompt you with a menu-driven interface where you can select the sorting algorithm and the sorting order. Here's how to use it:
 
-1. Enter the name of the input file containing your data. The file should have one number per line.
+1. Select data input method:
+   - 1 for generating random data
+   - 2 for inputting data from a file
+
+   If you choose to input data from a file, enter the name of the input file containing your data. The file should have one number per line.
 
 2. Select a sorting algorithm from the menu:
    - 1 for Bubble Sort
@@ -57,7 +61,7 @@ Once the program is running, it will prompt you with a menu-driven interface whe
    - 1 for Ascending
    - 2 for Descending
 
-4. The program will perform the selected sorting algorithm on the data and display the sorted array.
+4. The program will perform the selected sorting algorithm on the data and display the sorted array. If you chose to input data from a file, the sorted data can also be saved to a file for future use or analysis.
 
 ## File Input
 
@@ -83,11 +87,14 @@ The program provides implementations of three sorting algorithms:
 
 You can choose any of these algorithms to sort your data.
 
-## Contributing
+## Error Handling
 
-Contributions are welcome! If you'd like to improve this program or add new features, please fork the repository and create a pull request.
+The program includes error handling to validate user inputs and handle potential errors gracefully, such as entering non-numeric values.
 
-## License
+## Timing and Performance Measurement
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-```
+The execution time of each sorting algorithm is measured and displayed to compare their efficiency. This allows you to assess the performance of different sorting algorithms on your data.
+
+## Output to a File
+
+After sorting the data, you have the option to save the sorted data to a text file. The program will prompt you to enter the name of the output file, and the sorted data will be written to that file.
