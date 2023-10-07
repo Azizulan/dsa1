@@ -1,6 +1,6 @@
-#include<stdio.h> 
-#include<stdlib.h>
-#include<time.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
 
 void insertionSort(int data[], int n);
 void bubbleSort(int data[], int n);
@@ -8,42 +8,68 @@ void selectionSort(int data[], int n);
 
 void print(int data[], int a)
 {
-	int i;
-	for(i= 0; i<a; i++)
-	{
-		printf("%d ",data[i]);
-	}
-	printf("\n\n");
-	return;
+    int i;
+    for (i = 0; i < a; i++)
+    {
+        printf("%d ", data[i]);
+    }
+    printf("\n\n");
+    return;
 }
 
-
-int main() {
-    //dynamic array
+int main()
+{
+    // Dynamic array
     int *arr;
     int n; // Number of elements
 
-    printf("Enter the number of elements: ");
-    scanf("%d",&n); // Accepts the number of elements from the test case
+    // Open the file for reading
+    FILE *file = fopen("input.txt", "r");
+
+    // Check if the file exists and can be opened
+    if (file == NULL)
+    {
+        printf("Error opening the file. Exiting...\n");
+        return 1; // Exit with an error code
+    }
+
+    // Read the number of elements from the file
+    if (fscanf(file, "%d", &n) != 1)
+    {
+        printf("Error reading the number of elements. Exiting...\n");
+        fclose(file);
+        return 1; // Exit with an error code
+    }
+
+    printf("Number of elements read: %d\n", n); // Debugging statement
 
     // Dynamically allocate memory for the data array
     arr = (int *)malloc(n * sizeof(int));
 
-    // Check if the memory has been successfully allocated by malloc or not
     if (arr == NULL)
     {
         printf("Memory allocation failed. Exiting...\n");
+        fclose(file);
         return 1; // Exit with an error code
     }
 
-    srand(time(NULL));
+    // Read data from the file and store it in the array
     for (int i = 0; i < n; i++)
     {
-        //use rand() to generate random numbers and store them in the array
-        arr[i] = (rand() % 100) + 1;
+        if (fscanf(file, "%d", &arr[i]) != 1)
+        {
+            printf("Error reading data from the file. Exiting...\n");
+            free(arr); // Free dynamically allocated memory
+            fclose(file);
+            return 1; // Exit with an error code
+        }
+        printf("Read value: %d\n", arr[i]); // Debugging statement
     }
 
-    //Menu-driven interface to select the sorting algorithm
+    // Close the file
+    fclose(file);
+
+    // Menu-driven interface to select the sorting algorithm
     int choice;
     printf("Select a sorting algorithm:\n");
     printf("1. Bubble Sort\n");
@@ -52,7 +78,7 @@ int main() {
     printf("Enter your choice: ");
     scanf("%d", &choice);
 
-    //Menu-driven interface to select the sorting order
+    // Menu-driven interface to select the sorting order
     printf("\n Select sorting order:\n");
     printf("1. Ascending\n");
     printf("2. Descending\n\n");
@@ -60,31 +86,31 @@ int main() {
     int order_choice;
     scanf("%d", &order_choice);
 
-   switch (choice)
+    switch (choice)
     {
-    case 1: 
+    case 1:
         printf("\n bubble sort starting.... \n");
         bubbleSort(arr, n);
         break;
-    case 2: 
+    case 2:
         printf("\n insertion sort starting.... \n");
         insertionSort(arr, n);
         break;
-    case 3: 
+    case 3:
         printf("\n selection sort starting.... \n");
         selectionSort(arr, n);
         break;
     default:
         printf("Invalid choice. Exiting...\n");
         free(arr); // Free dynamically allocated memory
-        return 1;   // Exit with an error code
+        return 1;  // Exit with an error code
     }
 
     // Print the sorted array
     if (order_choice == 1)
     {
         printf("Sorted in ascending order: ");
-        print(arr, n);
+        print(arr, n); // Print in ascending order
     }
     else if (order_choice == 2)
     {
@@ -108,36 +134,35 @@ int main() {
 
 void insertionSort(int data[], int n)
 {
-	int i, j, key;
-	for(i = 1; i < n; i++)
-	{
-		key = data[i];
-		for(j = i-1; j >= 0 && data[j] > key; j--)
-		{
-			data[j+1] = data[j];
-		}
-		data[j+1] = key;
-	}
-	return;
+    int i, j, key;
+    for (i = 1; i < n; i++)
+    {
+        key = data[i];
+        for (j = i - 1; j >= 0 && data[j] > key; j--)
+        {
+            data[j + 1] = data[j];
+        }
+        data[j + 1] = key;
+    }
+    return;
 }
-
 
 void bubbleSort(int data[], int n)
 {
-	int i, j, temp;
+    int i, j, temp;
 
-	for(i = 0; i < n-1; i++)
-	{
-		for(j = 0; j < n-1-i; j++)
-		{
-			if(data[j] > data[j+1])
-			{
-				temp = data[j];
-				data[j] = data[j+1];
-				data[j+1] = temp;
-			}
-		}
-	}
+    for (i = 0; i < n - 1; i++)
+    {
+        for (j = 0; j < n - 1 - i; j++)
+        {
+            if (data[j] > data[j + 1])
+            {
+                temp = data[j];
+                data[j] = data[j + 1];
+                data[j + 1] = temp;
+            }
+        }
+    }
 }
 
 void selectionSort(int data[], int n)
